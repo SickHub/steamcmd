@@ -15,7 +15,7 @@ aliases:
   - &build
     - checkout
     - setup_remote_docker:
-        version: 20.10.2
+        version: 20.10.17
     - run:
         # plain docker build x86 without cross-platform
         name: Build images
@@ -56,7 +56,7 @@ workflows:
       - build:
           matrix:
             parameters:
-              steamcmd_version: ["jammy", "focal", "bionic"]
+              steamcmd_version: ["kinetic", "jammy", "focal", "bionic"]
 
   # build tags weekly
   weekly:
