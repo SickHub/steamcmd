@@ -1,0 +1,79 @@
+# Required ENV variables
+# DOCKER_USER, DOCKER_PASS
+version: 2.1
+aliases:
+  - &parameters
+    steamcmd_version:
+      default: latest
+      type: string
+    repo:
+      default: drpsychick
+      type: string
+    repo_name:
+      default: steamcmd
+      type: string
+  - &build
+    - checkout
+    - setup_remote_docker:
+        version: 20.10.2
+    - run:
+        # plain docker build x86 without cross-platform
+        name: Build images
+        command: |
+          echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin &> /dev/null || exit 1
+          if [ "latest" = "<< parameters.steamcmd_version >>" ]; then
+            # use default ARGs of image
+            echo "Building << parameters.repo >>/<< parameters.repo_name >>:<< parameters.steamcmd_version >>"
+            docker build --progress plain \
+              --tag << parameters.repo >>/<< parameters.repo_name >>:<< parameters.steamcmd_version >> .
+            # push only on master
+            if [ "${CIRCLE_BRANCH}" = "master" ]; then
+              docker push << parameters.repo >>/<< parameters.repo_name >>:<< parameters.steamcmd_version >>
+            fi
+          else
+            echo "Building << parameters.repo >>/<< parameters.repo_name >>:<< parameters.steamcmd_version >>"
+            docker build --progress plain \
+              --build-arg UBUNTU_VERSION=<< parameters.steamcmd_version >> \
+              --tag << parameters.repo >>/<< parameters.repo_name >>:<< parameters.steamcmd_version >> .
+            docker push << parameters.repo >>/<< parameters.repo_name >>:<< parameters.steamcmd_version >>
+          fi
+jobs:
+  build:
+    parameters: *parameters
+    docker:
+      - image: docker
+    resource_class: small
+    steps: *build
+
+workflows:
+  version: 2
+  build-images:
+    jobs:
+      - build:
+          matrix:
+            parameters:
+              steamcmd_version: ["latest"]
+      - build:
+          matrix:
+            parameters:
+              steamcmd_version: ["jammy", "focal", "bionic"]
+
+  # build tags weekly
+  weekly:
+    triggers:
+      - schedule:
+          # first day of month, 5:03 am, UTC
+          cron: "3 5 1 * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - build:
+          matrix:
+            parameters:
+              steamcmd_version: ["latest"]
+      - build:
+          matrix:
+            parameters:
+              steamcmd_version: ["jammy", "focal", "bionic"]
