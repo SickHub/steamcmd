@@ -1,13 +1,23 @@
-[![Build Status](https://img.shields.io/travis/com/thmhoag/steamcmd/master.svg?style=flat-square)](https://travis-ci.com/thmhoag/steamcmd) [![Docker Build Status](https://img.shields.io/docker/build/thmhoag/steamcmd.svg?style=flat-square)](https://hub.docker.com/r/thmhoag/steamcmd/builds/) 
-[![Docker Automated build](https://img.shields.io/docker/automated/thmhoag/steamcmd.svg?style=flat-square)](https://hub.docker.com/r/thmhoag/steamcmd/builds/) 
-[![Docker Pulls](https://img.shields.io/docker/pulls/thmhoag/steamcmd.svg?style=flat-square)](https://hub.docker.com/r/thmhoag/steamcmd/) 
-[![License](https://img.shields.io/dub/l/vibe-d.svg?style=flat-square)](https://github.com/thmhoag/steamcmd/blob/master/LICENSE)
+[![CircleCI](https://img.shields.io/circleci/build/github/SickHub/steamcmd)](https://app.circleci.com/pipelines/github/SickHub/steamcmd)
+[![Docker image](https://img.shields.io/docker/image-size/drpsychick/steamcmd?sort=date)](https://hub.docker.com/r/drpsychick/steamcmd/tags)
+[![Docker Pulls](https://img.shields.io/docker/pulls/drpsychick/steamcmd.svg?style=flat-square)](https://hub.docker.com/r/drpsychick/steamcmd/) 
+[![License](https://img.shields.io/dub/l/vibe-d.svg?style=flat-square)](https://github.com/SickHub/steamcmd/blob/master/LICENSE)
+
+[![GitHub issues](https://img.shields.io/github/issues/SickHub/steamcmd.svg)](https://github.com/SickHub/steamcmd/issues)
+[![GitHub closed issues](https://img.shields.io/github/issues-closed/SickHub/steamcmd.svg)](https://github.com/SickHub/steamcmd/issues?q=is%3Aissue+is%3Aclosed)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/SickHub/steamcmd.svg)](https://github.com/SickHub/steamcmd/pulls)
+[![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/SickHub/steamcmd.svg)](https://github.com/SickHub/steamcmd/pulls?q=is%3Apr+is%3Aclosed)
+[![Contributors](https://img.shields.io/github/contributors/SickHub/steamcmd.svg)](https://github.com/SickHub/steamcmd/graphs/contributors)
+[![Paypal](https://img.shields.io/badge/donate-paypal-00457c.svg?logo=paypal)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FTXDN7LCDWUEA&source=url)
+[![GitHub Sponsor](https://img.shields.io/badge/github-sponsor-blue?logo=github)](https://github.com/sponsors/DrPsychick)
 
 
 # steamcmd
-```
 Docker image with steamcmd pre-installed for hosting game servers.
-```
+
+**UPDATE August 2022**: I cloned this repo and split from the original, because my PR was never accepted.
+The original is here: [thmhoag/steamcmd](https://github.com/thmhoag/steamcmd).
+
 ## Overview
 
 This image is designed to be a base image for any server run via `steamcmd`. Daily automated builds ensure that the image always contains the latest version of `steamcmd`. When using the image it is recommended to always pull the latest tag to ensure no updates are required when running.
