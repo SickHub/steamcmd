@@ -2,6 +2,7 @@ ARG UBUNTU_VERSION=latest
 FROM ubuntu:$UBUNTU_VERSION
 
 ARG UBUNTU_VERSION=latest
+# i386 is required until the day `steamcmd` is built for amd64 and also games no longer need i386 libs.
 RUN dpkg --add-architecture i386 \
     && apt-get update && apt-get upgrade -y \
     && echo steam steam/question select "I AGREE" | debconf-set-selections \
@@ -22,5 +23,6 @@ RUN adduser --gecos "" --disabled-password steam
 WORKDIR /home/steam
 USER steam
 
-# uniq is a workaround for steamcmd spamming identical lines
-RUN steamcmd +quit | uniq
+# install steamcmd and remove downloaded packages to reduce image size
+RUN steamcmd +quit \
+    && rm -rf /home/steam/.local/share/Steam/steamcmd/package/*.zip.*
