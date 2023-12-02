@@ -18,7 +18,7 @@ RUN dpkg --add-architecture i386 \
     && rm -rf /var/tmp/*
 
 RUN ln -s /usr/games/steamcmd /usr/local/bin
-RUN adduser --gecos "" --disabled-password steam
+RUN useradd -m steam
 
 WORKDIR /home/steam
 USER steam
